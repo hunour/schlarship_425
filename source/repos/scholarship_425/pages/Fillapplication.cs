@@ -15,6 +15,8 @@ namespace scholarship_425.pages
 {
     public partial class Fillapplication : Form
     {
+        public string topic { get; set; }
+        public string body { get; set; }
         private Utilities verifyinfo = new Utilities();
         public Fillapplication()
         {
@@ -82,8 +84,7 @@ namespace scholarship_425.pages
 
                 //    // Everything is good. Create user account
 
-                //    MySqlCommand cmd = new MySqlCommand(@"INSERT INTO `dbo`.`registrar_office_db`(`studentID`, `firstname`, `lastname`, `phonenumber`, `emailaddress`, `gender`, `dateofbirth`, `gpa`, `status`, `creditnumbers`)
-                //                                        VALUES(@studentID, @firstname, @lastname, @phonenumber, @emailaddress, @gender, @dateofbirth, @gpa, @status, @creditnumbers)");
+                //    MySqlCommand cmd = new MySqlCommand(@"INSERT INTO `dbo`.`scholar_applicant` (`studentID`, `elegible`, `votes`) VALUES ('123456', 'Yes', '0');");
 
                 //    // assign parameter values
                 //    cmd.Parameters.Add("@firstName", MySqlDbType.VarChar, 45).Value = textFirstName.Text;
@@ -114,29 +115,59 @@ namespace scholarship_425.pages
 
                 if (verifyinfo.studentIDexist(textStudentID.Text))
                 {
-                    if (verifyinfo.firstnameexist(textFirstName.Text))
+                    if (verifyinfo.firstnameexist(textFirstName.Text, textStudentID.Text))
                     {
-                        if (verifyinfo.lastnameexist(textLastName.Text))
+                        if (verifyinfo.lastnameexist(textLastName.Text , textStudentID.Text))
                         {
-                            if (verifyinfo.emailexist(textEmail.Text))
+                            if (verifyinfo.emailexist(textEmail.Text, textStudentID.Text))
                             {
-                                if (verifyinfo.phonenumberexist(textPhoneNumber.Text))
+                                if (verifyinfo.phonenumberexist(textPhoneNumber.Text, textStudentID.Text))
                                 {
-                                    if (verifyinfo.genderexist(textGender.Text))
+                                    if (verifyinfo.genderexist(textGender.Text, textStudentID.Text))
                                     {
-                                        if (verifyinfo.dboexist(dateBirth.Value.Date))
+                                        if (verifyinfo.dboexist(dateBirth.Value.Date, textStudentID.Text))
                                         {
-                                            if (verifyinfo.statusexist(textStatus.Text))
+                                            if (verifyinfo.statusexist(textStatus.Text, textStudentID.Text))
                                             {
-                                                if (verifyinfo.GPAexist(textGPA.Text))
+                                                if ((verifyinfo.GPAexist(textGPA.Text, textStudentID.Text)))
                                                 {
-                                                    if (verifyinfo.credithexist(textCreditHour.Text))
+                                                    if ((verifyinfo.credithexist(textCreditHour.Text, textStudentID.Text)))
                                                     {
-                                                        
-                                                        var application = new Finalpage();
-                                                        application.FormClosed += new FormClosedEventHandler(application_finished);
-                                                        application.Show();
-                                                        this.Hide();
+                                                        if (!(verifyinfo.studentIDexistApp(textStudentID.Text)))
+                                                        {
+                                                            MySqlCommand cmd = new MySqlCommand(@"INSERT INTO `dbo`.`applicant_data_store` (`studentID`, `stat`, `votes`) VALUES (@studentID, @stat, @votes);");
+                                                            cmd.Parameters.Add("@votes", MySqlDbType.Int32).Value = 0;
+                                                            cmd.Parameters.Add("@studentID", MySqlDbType.Int32).Value = textStudentID.Text;
+
+                                                            if (Convert.ToDouble(textGPA.Text) > 3.2 && Convert.ToInt32(textCreditHour.Text) > 12 && !((DateTime.Now.Year - dateBirth.Value.Year)>23))
+                                                            {
+                                                                cmd.Parameters.Add("@stat", MySqlDbType.VarChar, 45).Value = "elegible";
+                                                            }
+                                                            else {
+                                                                cmd.Parameters.Add("@stat", MySqlDbType.VarChar, 45).Value = "non-elegible";
+                                                                Utilities create = new Utilities();
+                                                                topic = "Scholarship Notification";
+                                                                body = "We are sorry " + textFirstName + " " + textLastName + " to let you know that you dont meet the requirments to be elegible for 2020-2021 scholarship" + "\n" + "BEST REGARD";
+                                                                create.sendemail(textEmail.Text, textFirstName.Text, topic, body);
+                                                            }
+                                                            // connect to database
+                                                            DBConnect userCreationConn = new DBConnect();
+
+                                                            // execute statement
+                                                            if (userCreationConn.NonQuery(cmd) > 0)
+                                                            {
+                                                                var application = new Finalpage();
+                                                                application.FormClosed += new FormClosedEventHandler(application_finished);
+                                                                application.Show();
+                                                                this.Hide();
+                                                            }
+                                                            else
+                                                            {
+                                                                lblerror.Text = "Error creating account";
+                                                            }
+                                                        }
+                                                        else { lblerror.Text = "You submitted your application before thank you"; }
+
                                                     }
                                                     else { lblerror.Text = "credit hours doesnt match"; }
                                                 }

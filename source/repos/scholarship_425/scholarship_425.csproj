@@ -39,6 +39,9 @@
     <Reference Include="Google.Protobuf, Version=3.11.4.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>packages\Google.Protobuf.3.11.4\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
+    <Reference Include="Json.Net, Version=1.0.23.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Json.Net.1.0.23\lib\netstandard2.0\Json.Net.dll</HintPath>
+    </Reference>
     <Reference Include="K4os.Compression.LZ4, Version=1.1.11.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
       <HintPath>packages\K4os.Compression.LZ4.1.1.11\lib\net46\K4os.Compression.LZ4.dll</HintPath>
     </Reference>
@@ -50,6 +53,9 @@
     </Reference>
     <Reference Include="MySql.Data, Version=8.0.22.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>packages\MySql.Data.8.0.22\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
@@ -92,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="pages\Class1.cs" />
     <Compile Include="pages\Fillapplication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +117,12 @@
     <Compile Include="pages\EmployeeGUI.Designer.cs">
       <DependentUpon>EmployeeGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="pages\votepage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="pages\votepage.Designer.cs">
+      <DependentUpon>votepage.cs</DependentUpon>
+    </Compile>
     <Compile Include="pages\Mainpage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,8 +132,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilites Classes\Class1.cs" />
+    <Compile Include="Utilites Classes\employee.cs" />
+    <Compile Include="Utilites Classes\Utilities.cs" />
     <Compile Include="Utilites Classes\DBConnect.cs" />
     <Compile Include="Utilites Classes\Students.cs" />
+    <Compile Include="Utilites Classes\winner.cs" />
     <EmbeddedResource Include="pages\Fillapplication.resx">
       <DependentUpon>Fillapplication.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,6 +145,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="pages\EmployeeGUI.resx">
       <DependentUpon>EmployeeGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pages\votepage.resx">
+      <DependentUpon>votepage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="pages\Mainpage.resx">
       <DependentUpon>Mainpage.cs</DependentUpon>
