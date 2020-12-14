@@ -409,7 +409,7 @@ namespace scholarship_425.Utilites_Classes
                 Credentials = new NetworkCredential()
                 {
                     UserName = "hnoureddine@ptiqcs.com",
-                    Password = "Ali13331"
+                    Password = "password"
                 }
             };
             MailAddress Fromemail = new MailAddress("hnoureddine@ptiqcs.com", "Scholarship admin");
